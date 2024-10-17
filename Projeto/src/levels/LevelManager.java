@@ -82,7 +82,7 @@ public class LevelManager {
 
 	private void updateWaterAnimation() {
 		aniTick++;
-		if (aniTick >= 40) { // Verifique se 40 ticks é o valor correto para a animação
+		if (aniTick >= 40) {
 			aniTick = 0;
 			aniIndex++;
 			if (aniIndex >= 4) // Deve ser 4, pois há 4 frames de animação

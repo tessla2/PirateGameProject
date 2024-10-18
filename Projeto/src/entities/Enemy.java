@@ -12,7 +12,7 @@ import main.Game;
 public abstract class Enemy extends Entity {
 	protected int enemyType;
 	protected boolean firstUpdate = true;
-	protected float walkSpeed = 0.50f * Game.SCALE;
+	protected float walkSpeed;
 	protected int walkDir = LEFT;
 	protected int tileY;
 	protected float attackDistance = Game.TILES_SIZE;
@@ -24,7 +24,7 @@ public abstract class Enemy extends Entity {
 		this.enemyType = enemyType;
 		maxHealth = GetMaxHealth(enemyType);
 		currentHealth = maxHealth;
-		this.walkSpeed = Game.SCALE * 0.65f;
+		this.walkSpeed = Game.SCALE * 0.50f;
 
 	}
 

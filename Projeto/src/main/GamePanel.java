@@ -11,6 +11,8 @@ public class GamePanel extends JPanel {
 
 	private MouseInputs mouseInputs;
 	private Game game;
+	public static final int BASE_WIDTH = 800;
+	public static final int BASE_HEIGHT = 600;
 
 	public GamePanel(Game game) {
 		mouseInputs = new MouseInputs(this);

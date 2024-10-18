@@ -4,6 +4,10 @@ import main.Game;
 
 public class Constants {
 
+	public static final float GRAVITY = 0.04f * Game.SCALE;
+	public static final int ANIMATION_SPEED = 25;
+
+
 	public static class UI{
 		public static class Buttons{
 			public static final int B_WIDTH_DEFAULT = 140;
@@ -12,10 +16,12 @@ public class Constants {
 			public static final int B_HEIGHT = (int) (B_HEIGHT_DEFAULT * Game.SCALE);
 		}
 
-	}
+		public static class PauseButtons{
+			public static final int SOUND_SIZE_DEFAULT = 42;
+			public static final int SOUND_SIZE = (int) (SOUND_SIZE_DEFAULT * Game.SCALE);
+		}
 
-	public static final float GRAVITY = 0.04f * Game.SCALE;
-	public static final int ANIMATION_SPEED = 25;
+	}
 
 	public static class Projectiles {
 		public static final int CANNON_BALL_DEFAULT_WIDTH = 15;

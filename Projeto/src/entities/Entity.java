@@ -17,7 +17,7 @@ public abstract class Entity {
 	protected int maxHealth = 50;
 	protected int currentHealth = maxHealth;
 	protected Rectangle2D.Float attackBox;
-	protected float walkSpeed = 1.0f * Game.SCALE;
+	protected float walkSpeed = Game.SCALE;
 
 	public Entity(float x, float y, int width, int height) {
 		this.x = x;

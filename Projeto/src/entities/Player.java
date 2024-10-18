@@ -55,7 +55,7 @@ public class Player extends Entity {
 		this.state = IDLE;
 		this.maxHealth = 50;
 		this.currentHealth = maxHealth;
-		this.walkSpeed = Game.SCALE * 1.0f;
+		this.walkSpeed = Game.SCALE;
 		loadAnimations();
 		initHitbox(20, 27);
 		initAttackBox();

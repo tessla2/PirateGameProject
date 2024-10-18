@@ -8,6 +8,7 @@ import java.awt.geom.Rectangle2D.Float;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
+import UI.PauseOverlay;
 import entities.EnemyManager;
 import entities.Player;
 import levels.LevelManager;
@@ -24,7 +25,9 @@ public class Playing extends State implements Statemethods {
 	private EnemyManager enemyManager;
 	private ObjectManager objectManager;
 	private GameOverOverlay gameOverOverlay;
+	private PauseOverlay pauseOverlay;
 	private LevelCompletedOverlay levelCompletedOverlay;
+	private boolean paused = true;
 
 	private int xLvlOffset;
 	private int leftBorder = (int) (0.2 * Game.GAME_WIDTH);
@@ -75,10 +78,11 @@ public class Playing extends State implements Statemethods {
 		enemyManager = new EnemyManager(this);
 		objectManager = new ObjectManager(this);
 
+
 		player = new Player(200, 200, (int) (64 * Game.SCALE), (int) (40 * Game.SCALE), this);
 		player.loadLvlData(levelManager.getCurrentLevel().getLevelData());
 		player.setSpawn(levelManager.getCurrentLevel().getPlayerSpawn());
-
+		pauseOverlay = new PauseOverlay();
 		gameOverOverlay = new GameOverOverlay(this);
 		levelCompletedOverlay = new LevelCompletedOverlay(this);
 	}
@@ -92,6 +96,7 @@ public class Playing extends State implements Statemethods {
 			objectManager.update(levelManager.getCurrentLevel().getLevelData(), player);
 			player.update();
 			enemyManager.update(levelManager.getCurrentLevel().getLevelData(), player);
+			pauseOverlay.update();
 			checkCloseToBorder();
 		}
 	}
@@ -115,12 +120,11 @@ public class Playing extends State implements Statemethods {
 	public void draw(Graphics g) {
 		g.drawImage(backgroundImg, 0, 0, Game.GAME_WIDTH, Game.GAME_HEIGHT, null);
 
-		drawClouds(g);
-
 		levelManager.draw(g, xLvlOffset);
 		player.render(g, xLvlOffset);
 		enemyManager.draw(g, xLvlOffset);
 		objectManager.draw(g, xLvlOffset);
+		pauseOverlay.draw(g);
 
 		if (gameOver) {
 			gameOverOverlay.draw(g);
@@ -222,22 +226,30 @@ public class Playing extends State implements Statemethods {
 		loadNextLevel(); // Chama o método na classe Playing para carregar o próximo nível
 	}
 
-	public void mouseDragged(MouseEvent e) {
 
+	public void mouseDragged(MouseEvent e) {
+		if (paused)
+			pauseOverlay.mouseDragged(e);
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
+		if (paused)
+			pauseOverlay.mousePressed(e);
 
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
+		if (paused)
+			pauseOverlay.mouseReleased(e);
 
 	}
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
+		if (paused)
+			pauseOverlay.mouseMoved(e);
 
 	}
 

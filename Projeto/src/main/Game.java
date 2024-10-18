@@ -21,7 +21,7 @@ public class Game implements Runnable {
 	private Playing playing;
 	private Menu menu;
 
-	public final static float TILES_DEFAULT_SIZE = 29.5f;
+	public final static float TILES_DEFAULT_SIZE = 29.6f;
 	public final static float SCALE = 2f;
 	public final static int TILES_IN_WIDTH = 26;
 	public final static int TILES_IN_HEIGHT = 13;
@@ -59,6 +59,10 @@ public class Game implements Runnable {
 		case PLAYING:
 			playing.update();
 			break;
+			case OPTIONS:
+			case QUIT:
+				System.exit(0);
+
 		default:
 			break;
 

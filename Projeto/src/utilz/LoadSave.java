@@ -14,8 +14,8 @@ public class LoadSave {
 	public static final String PLAYER_PIRATE = "player_sprites.png";
 
 	// BG
-	public static final String MENU_BACKGROUND = "6.png";
-	public static final String PLAYING_BG_IMG = "7.png";
+	public static final String MENU_BACKGROUND = "menu_background.png";
+	public static final String PLAYING_BG_IMG = "5.png";
 
 	// ENVIRONMENT
 	public static final String BIG_CLOUDS = "big_clouds.png";
@@ -40,6 +40,12 @@ public class LoadSave {
 
 	//UI
 	public static final String MENU_BUTTONS = "button_atlas.png";
+	public static final String PAUSE_MENU = "pause_menu.png";
+	public static final String SOUND_BUTTONS = "sound_button.png";
+
+
+//	private static final String
+//	private static final String
 
 	public static BufferedImage GetSpriteAtlas(String fileName) {
 		BufferedImage img = null;

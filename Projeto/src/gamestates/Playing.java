@@ -4,11 +4,10 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
-import java.awt.geom.Rectangle2D.Float;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
-import UI.PauseOverlay;
+import ui.PauseOverlay;
 import entities.EnemyManager;
 import entities.Player;
 import levels.LevelManager;
@@ -27,7 +26,7 @@ public class Playing extends State implements Statemethods {
 	private GameOverOverlay gameOverOverlay;
 	private PauseOverlay pauseOverlay;
 	private LevelCompletedOverlay levelCompletedOverlay;
-	private boolean paused = true;
+	private boolean paused = false;
 
 	private int xLvlOffset;
 	private int leftBorder = (int) (0.2 * Game.GAME_WIDTH);
@@ -82,23 +81,25 @@ public class Playing extends State implements Statemethods {
 		player = new Player(200, 200, (int) (64 * Game.SCALE), (int) (40 * Game.SCALE), this);
 		player.loadLvlData(levelManager.getCurrentLevel().getLevelData());
 		player.setSpawn(levelManager.getCurrentLevel().getPlayerSpawn());
-		pauseOverlay = new PauseOverlay();
+		pauseOverlay = new PauseOverlay(this);
 		gameOverOverlay = new GameOverOverlay(this);
 		levelCompletedOverlay = new LevelCompletedOverlay(this);
 	}
 
 	@Override
 	public void update() {
-		if (lvlCompleted) {
+		if (paused) {
+			pauseOverlay.update();
+		}
+		else if (lvlCompleted) {
 			levelCompletedOverlay.update();
 		} else if (!gameOver) {
 			levelManager.update();
 			objectManager.update(levelManager.getCurrentLevel().getLevelData(), player);
 			player.update();
 			enemyManager.update(levelManager.getCurrentLevel().getLevelData(), player);
-			pauseOverlay.update();
-			checkCloseToBorder();
 		}
+		checkCloseToBorder();
 	}
 
 	private void checkCloseToBorder() {
@@ -118,20 +119,25 @@ public class Playing extends State implements Statemethods {
 
 	@Override
 	public void draw(Graphics g) {
+		// Desenha o fundo
 		g.drawImage(backgroundImg, 0, 0, Game.GAME_WIDTH, Game.GAME_HEIGHT, null);
 
+		// Desenha o nível e os elementos do jogo
 		levelManager.draw(g, xLvlOffset);
 		player.render(g, xLvlOffset);
 		enemyManager.draw(g, xLvlOffset);
 		objectManager.draw(g, xLvlOffset);
-		pauseOverlay.draw(g);
 
-		if (gameOver) {
+		// Desenha as sobreposições dependendo do estado do jogo
+		if (paused) {
+			pauseOverlay.draw(g);
+		} else if (gameOver) {
 			gameOverOverlay.draw(g);
 		} else if (lvlCompleted) {
 			levelCompletedOverlay.draw(g);
 		}
 	}
+
 
 	private void drawClouds(Graphics g) {
 		for (int i = 0; i < 3; i++)
@@ -154,6 +160,8 @@ public class Playing extends State implements Statemethods {
 	public void setGameOver(boolean gameOver) {
 		this.gameOver = gameOver;
 	}
+
+	public void unpauseGame(){paused = false;}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -179,6 +187,9 @@ public class Playing extends State implements Statemethods {
 			case KeyEvent.VK_SPACE,KeyEvent.VK_W:
 				player.setJump(true);
 				break;
+				case KeyEvent.VK_ESCAPE:
+					paused = !paused;
+					break;
 			}
 		}
 	}

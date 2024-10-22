@@ -1,4 +1,4 @@
-package UI;
+package ui;
 
 import utilz.LoadSave;
 
@@ -46,7 +46,7 @@ public class SoundButton extends PauseButton{
         g.drawImage(soundImages[rowIndex][colIndex],x,y,width,height,null);
     }
 
-    public void resetBooleans() {
+    public void resetBool() {
         mouseOver = false;
         mousePressed = false;
     }

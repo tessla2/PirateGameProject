@@ -1,4 +1,4 @@
-package UI;
+package ui;
 
 import gamestates.Gamestate;
 import utilz.LoadSave;
@@ -73,7 +73,7 @@ public class MenuButton {
         return buttonsRec;
     }
 
-    public void resetBooleans(){
+    public void resetBool(){
         mouseOver = false;
         mousePressed = false;
     }

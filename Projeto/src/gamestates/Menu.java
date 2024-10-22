@@ -4,7 +4,7 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import UI.MenuButton;
+import ui.MenuButton;
 import main.Game;
 import utilz.LoadSave;
 
@@ -102,7 +102,7 @@ public class Menu extends State implements Statemethods {
 
 	private void resetButtons() {
 		for(MenuButton menuB : buttons){
-			menuB.resetBooleans();
+			menuB.resetBool();
 		}
 	}
 

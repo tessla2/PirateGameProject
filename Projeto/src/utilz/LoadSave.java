@@ -42,7 +42,8 @@ public class LoadSave {
 	public static final String MENU_BUTTONS = "button_atlas.png";
 	public static final String PAUSE_MENU = "pause_menu.png";
 	public static final String SOUND_BUTTONS = "sound_button.png";
-
+    public static final String URM_BUTTONS = "urm_buttons.png";
+    public static final String VOLUME_BUTTONS = "volume_buttons.png";
 
 //	private static final String
 //	private static final String

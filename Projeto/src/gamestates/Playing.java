@@ -13,8 +13,8 @@ import entities.Player;
 import levels.LevelManager;
 import main.Game;
 import objects.ObjectManager;
-import overlays.GameOverOverlay;
-import overlays.LevelCompletedOverlay;
+import ui.GameOverOverlay;
+import ui.LevelCompletedOverlay;
 import utilz.LoadSave;
 import static utilz.Constants.Environment.*;
 
@@ -27,6 +27,7 @@ public class Playing extends State implements Statemethods {
 	private PauseOverlay pauseOverlay;
 	private LevelCompletedOverlay levelCompletedOverlay;
 	private boolean paused = false;
+	private boolean playerDying;
 
 	private int xLvlOffset;
 	private int leftBorder = (int) (0.2 * Game.GAME_WIDTH);
@@ -90,13 +91,16 @@ public class Playing extends State implements Statemethods {
 	public void update() {
 		if (paused) {
 			pauseOverlay.update();
-		}
-		else if (lvlCompleted) {
+		}else if (lvlCompleted) {
 			levelCompletedOverlay.update();
-		} else if (!gameOver) {
-			levelManager.update();
-			objectManager.update(levelManager.getCurrentLevel().getLevelData(), player);
+		}else if(gameOver) {
+			gameOverOverlay.update();
+		}else if(playerDying) {
 			player.update();
+		}else{
+			levelManager.update();
+			player.update();
+			objectManager.update(levelManager.getCurrentLevel().getLevelData(), player);
 			enemyManager.update(levelManager.getCurrentLevel().getLevelData(), player);
 		}
 		checkCloseToBorder();
@@ -124,9 +128,9 @@ public class Playing extends State implements Statemethods {
 
 		// Desenha o nível e os elementos do jogo
 		levelManager.draw(g, xLvlOffset);
-		player.render(g, xLvlOffset);
 		enemyManager.draw(g, xLvlOffset);
 		objectManager.draw(g, xLvlOffset);
+		player.render(g, xLvlOffset);
 
 		// Desenha as sobreposições dependendo do estado do jogo
 		if (paused) {
@@ -152,6 +156,7 @@ public class Playing extends State implements Statemethods {
 	public void resetAll() {
 		gameOver = false;
 		lvlCompleted = false;
+		playerDying = false;
 		player.resetAll();
 		enemyManager.resetAllEnemies();
 		objectManager.resetAllObjects();
@@ -172,11 +177,6 @@ public class Playing extends State implements Statemethods {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if (gameOver) {
-			gameOverOverlay.keyPressed(e);
-		} else if (lvlCompleted) {
-			levelCompletedOverlay.keyPressed(e); // Chama o método keyPressed na overlay de Level Completed
-		} else {
 			switch (e.getKeyCode()) {
 			case KeyEvent.VK_A:
 				player.setLeft(true);
@@ -191,7 +191,6 @@ public class Playing extends State implements Statemethods {
 					paused = !paused;
 					break;
 			}
-		}
 	}
 
 	@Override
@@ -239,29 +238,40 @@ public class Playing extends State implements Statemethods {
 
 
 	public void mouseDragged(MouseEvent e) {
-		if (paused)
-			pauseOverlay.mouseDragged(e);
+		if (!gameOver  && !lvlCompleted)
+			if (paused)
+				pauseOverlay.mouseDragged(e);
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		if (paused)
+		if (gameOver)
+			gameOverOverlay.mousePressed(e);
+		else if (paused)
 			pauseOverlay.mousePressed(e);
+		else if (lvlCompleted)
+			levelCompletedOverlay.mousePressed(e);
 
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		if (paused)
+		if (gameOver)
+			gameOverOverlay.mouseReleased(e);
+		else if (paused)
 			pauseOverlay.mouseReleased(e);
-
+		else if (lvlCompleted)
+			levelCompletedOverlay.mouseReleased(e);
 	}
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		if (paused)
+		if (gameOver)
+			gameOverOverlay.mouseMoved(e);
+		else if (paused)
 			pauseOverlay.mouseMoved(e);
-
+		else if (lvlCompleted)
+			levelCompletedOverlay.mouseMoved(e);
 	}
 
 	public void windowFocusLost() {
@@ -293,4 +303,7 @@ public class Playing extends State implements Statemethods {
 		return levelManager;
 	}
 
+	public void setPlayerDying(boolean playerDying) {
+		this.playerDying = playerDying;
+	}
 }

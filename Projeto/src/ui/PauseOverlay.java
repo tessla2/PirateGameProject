@@ -18,17 +18,14 @@ public class PauseOverlay {
     private Playing playing;
     private BufferedImage backgroundImg;
     private int bgX, bgY, bgW, bgH;
-    private SoundButton musicButton, soundEffectButton;
     private UrmButton menuB, replayB, unpauseB;
-    private VolumeButton volumeButton;
+    private AudioOptions audioOptions;
 
     public PauseOverlay(Playing playing) {
         this.playing = playing;
         loadBackground();
-        createSoundButtons();
-        createUrmButtons();
-        createVolumeButton();
 
+        createUrmButtons();
     }
 
     private void loadBackground() {
@@ -50,25 +47,8 @@ public class PauseOverlay {
         unpauseB = new UrmButton(unpausedX, bY, URM_SIZE, URM_SIZE, 0);
     }
 
-    private void createSoundButtons() {
-        int soundX = (int) (410 * Game.SCALE);
-        int musicY = (int) (115 * Game.SCALE);
-        int soundEffectButtonY = (int) (165 * Game.SCALE);
-        musicButton = new SoundButton(soundX, musicY, SOUND_SIZE, SOUND_SIZE);
-        soundEffectButton = new SoundButton(soundX, soundEffectButtonY, SOUND_SIZE, SOUND_SIZE);
-    }
-
-    private void createVolumeButton(){
-        int vX = (int) (276 * Game.SCALE);
-        int vY = (int) (252 * Game.SCALE);
-        volumeButton = new VolumeButton(vX, vY, SLIDER_WIDTH, VOLUME_HEIGHT);
-    }
 
      public void update() {
-
-        musicButton.update();
-        soundEffectButton.update();
-
         menuB.update();
         replayB.update();
         unpauseB.update();
@@ -80,17 +60,10 @@ public class PauseOverlay {
             // Background
             g.drawImage(backgroundImg, bgX, bgY, bgW, bgH, null);
 
-            // Sound buttons
-            musicButton.draw(g);
-            soundEffectButton.draw(g);
-
             // UrmButtons
             menuB.draw(g);
             replayB.draw(g);
             unpauseB.draw(g);
-
-            // Volume Button
-            volumeButton.draw(g);
         }
 
 

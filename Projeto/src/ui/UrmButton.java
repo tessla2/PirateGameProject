@@ -13,7 +13,7 @@ public class UrmButton extends PauseButton{
     private boolean mouseOver, mousePressed;
 
 
-    UrmButton(int x, int y, int width,int height, int rowIndex){
+    public UrmButton(int x, int y, int width, int height, int rowIndex){
         super(x, y, width, height);
         this.rowIndex = rowIndex;
         loadImgs();

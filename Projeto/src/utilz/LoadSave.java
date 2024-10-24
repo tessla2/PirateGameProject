@@ -16,6 +16,9 @@ public class LoadSave {
 	// BG
 	public static final String MENU_BACKGROUND = "menu_background.png";
 	public static final String PLAYING_BG_IMG = "5.png";
+	public static final String DEATH_SCREEN = "death_screen.png";
+	public static final String MENU_BG_IMG = "background_menu.png";
+	public static final String COMPLETED_IMG = "completed_sprite.png";
 
 	// ENVIRONMENT
 	public static final String BIG_CLOUDS = "big_clouds.png";

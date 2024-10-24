@@ -30,8 +30,8 @@ public class AudioOptions {
 
     private void createSoundButtons() {
         int soundX = (int) (410 * Game.SCALE);
-        int musicY = (int) (115 * Game.SCALE);
-        int soundEffectButtonY = (int) (165 * Game.SCALE);
+        int musicY = (int) (110 * Game.SCALE);
+        int soundEffectButtonY = (int) (160 * Game.SCALE);
         musicButton = new SoundButton(soundX, musicY, SOUND_SIZE, SOUND_SIZE);
         soundEffectButton = new SoundButton(soundX, soundEffectButtonY, SOUND_SIZE, SOUND_SIZE);
     }
@@ -93,7 +93,6 @@ public class AudioOptions {
             soundEffectButton.setMouseOver(true);
         else if (isIn(e, volumeButton))
             volumeButton.setMouseOver(true);
-
     }
 
     private boolean isIn(MouseEvent e, PauseButton b) {

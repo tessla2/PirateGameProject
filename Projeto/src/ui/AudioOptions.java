@@ -1,6 +1,5 @@
 package ui;
 
-import gamestates.Gamestate;
 import main.Game;
 
 import java.awt.*;
@@ -14,13 +13,14 @@ public class AudioOptions {
     private VolumeButton volumeButton;
     private SoundButton musicButton, soundEffectButton;
 
+    private Game game;
 
 
-    public AudioOptions() {
+    public AudioOptions(Game game) {
+        this.game = game;
         createSoundButtons();
         createVolumeButton();
     }
-
 
     private void createVolumeButton() {
         int vX = (int) (276 * Game.SCALE);
@@ -36,12 +36,12 @@ public class AudioOptions {
         soundEffectButton = new SoundButton(soundX, soundEffectButtonY, SOUND_SIZE, SOUND_SIZE);
     }
 
-    public void update(){
+    public void update() {
         musicButton.update();
         soundEffectButton.update();
     }
 
-    public void draw(Graphics g){
+    public void draw(Graphics g) {
         // Sound buttons
         musicButton.draw(g);
         soundEffectButton.draw(g);
@@ -52,7 +52,12 @@ public class AudioOptions {
 
     public void mouseDragged(MouseEvent e) {
         if (volumeButton.isMousePressed()) {
+            float valueBefore = volumeButton.getFloatValue();
+
             volumeButton.changeX(e.getX());
+            float valueAfter = volumeButton.getFloatValue();
+            if (valueBefore != valueAfter)
+                game.getAudioPlayer().setVolume(valueAfter);
         }
 
     }
@@ -68,12 +73,14 @@ public class AudioOptions {
 
     public void mouseReleased(MouseEvent e) {
         if (isIn(e, musicButton)) {
-            if (musicButton.isMousePressed())
+            if (musicButton.isMousePressed()) {
                 musicButton.setMuted(!musicButton.isMuted());
-
+                game.getAudioPlayer().toggleSongMute();
+            }
         } else if (isIn(e, soundEffectButton)) {
             if (soundEffectButton.isMousePressed())
                 soundEffectButton.setMuted(!soundEffectButton.isMuted());
+            game.getAudioPlayer().toggleEffectMute();
         }
 
         musicButton.resetBool();
@@ -98,6 +105,5 @@ public class AudioOptions {
     private boolean isIn(MouseEvent e, PauseButton b) {
         return b.getBounds().contains(e.getX(), e.getY());
     }
-
 
 }

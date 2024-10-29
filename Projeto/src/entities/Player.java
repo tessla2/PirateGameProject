@@ -11,6 +11,7 @@ import java.awt.Point;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
+import audio.AudioPlayer;
 import gamestates.Playing;
 import main.Game;
 import utilz.LoadSave;
@@ -49,7 +50,7 @@ public class Player extends Entity {
 	private int powerBarXStart = (int) (44 * Game.SCALE);
 	private int powerBarYStart = (int) (34 * Game.SCALE);
 	private int powerWidth = powerBarWidth;
-	private int powerMaxValue = 200;
+	private int powerMaxValue = 100;
 	private int powerValue = powerMaxValue;
 
 
@@ -100,8 +101,11 @@ public class Player extends Entity {
 				animation_timer = 0;
 				animation_index = 0;
 				playing.setPlayerDying(true);
+				playing.getGame().getAudioPlayer().playEffect(AudioPlayer.DIE);
 			} else if (animation_index == GetSpriteAmount(DEAD) - 2 && animation_timer >= ANIMATION_SPEED - 1) {
 				playing.setGameOver(true);
+				playing.getGame().getAudioPlayer().stopSong();
+				playing.getGame().getAudioPlayer().playEffect(AudioPlayer.GAMEOVER);
 			} else
 				updateAnimationTick();
 
@@ -155,6 +159,7 @@ public class Player extends Entity {
 
 		playing.checkEnemyHit(attackBox);
 		playing.checkObjectHit(attackBox);
+		playing.getGame().getAudioPlayer().playAttackSound();
 	}
 
 	private void updateAttackBox() {
@@ -313,6 +318,7 @@ public class Player extends Entity {
 	private void jump() {
 		if (inAir)
 			return;
+		playing.getGame().getAudioPlayer().playEffect(AudioPlayer.JUMP);
 		inAir = true;
 		airSpeed = jumpSpeed;
 	}

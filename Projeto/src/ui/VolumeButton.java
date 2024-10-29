@@ -13,6 +13,7 @@ import static utilz.Constants.UI.VolumeButton.*;
     private boolean mouseOver, mousePressed;
     private int index = 0;
     private int buttonX, minX, maxX;
+    private float floatValue = 0;
 
 
     VolumeButton(int x, int y, int width,int height){
@@ -77,8 +78,17 @@ import static utilz.Constants.UI.VolumeButton.*;
         else if(x > maxX)
             buttonX = maxX;
         else buttonX = x;
+        updateFloatValue();
 
         bounds.x = buttonX - VOLUME_WIDTH / 2;
         }
+
+        private void updateFloatValue() {
+        float range = maxX - minX;
+        float value = buttonX - minX;
+        floatValue = value/range; // 0 or 1
+        }
+
+        public float getFloatValue(){return floatValue;}
     }
 

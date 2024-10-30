@@ -1,6 +1,6 @@
 package entities;
 
-import java.awt.Graphics;
+import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
 import main.Game;
@@ -26,11 +26,11 @@ public abstract class Entity {
 		this.height = height;
 	}
 
-	// protected void drawAttackBox(Graphics g, int xLvlOffset) {
-	// g.setColor(Color.red);
-	// g.drawRect((int) (attackBox.x - xLvlOffset), (int) attackBox.y, (int)
-	// attackBox.width, (int) attackBox.height);
-	// }
+//	 protected void drawAttackBox(Graphics g, int xLvlOffset) {
+//	 g.setColor(Color.red);
+//	 g.drawRect((int) (attackBox.x - xLvlOffset), (int) attackBox.y, (int)
+//	 attackBox.width, (int) attackBox.height);
+//	 }
 
 	protected void drawHitbox(Graphics g, int xLvlOffset) {
 		// For debugging the hitbox

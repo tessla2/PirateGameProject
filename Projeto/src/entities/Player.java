@@ -72,9 +72,9 @@ public class Player extends Entity {
 		super(x, y, width, height);
 		this.playing = playing;
 		this.state = IDLE;
-		this.maxHealth = 35;
-		this.currentHealth = 35;
-		this.walkSpeed = Game.SCALE * 1.0f;
+		this.maxHealth = 50;
+		this.currentHealth = 50;
+		this.walkSpeed = Game.SCALE;
 		loadAnimations();
 		initHitbox(20, 27);
 		initAttackBox();
@@ -88,7 +88,7 @@ public class Player extends Entity {
 	}
 
 	private void initAttackBox() {
-		attackBox = new Rectangle2D.Float(x, y, (int) (20 * Game.SCALE), (int) (20 * Game.SCALE));
+		attackBox = new Rectangle2D.Float(x, y, (int) (30 * Game.SCALE), (int) (20 * Game.SCALE));
 	}
 
 	public void update() {
@@ -164,11 +164,11 @@ public class Player extends Entity {
 
 	private void updateAttackBox() {
 		if (right || (powerAttackActive && flipW == 1))
-			attackBox.x = hitbox.x + hitbox.width + (int) (Game.SCALE * 10);
+			attackBox.x = hitbox.x + hitbox.width + (int) (Game.SCALE * 5);
 		else if (left || (powerAttackActive && flipW == -1))
-			attackBox.x = hitbox.x - hitbox.width - (int) (Game.SCALE * 10);
+			attackBox.x = hitbox.x - hitbox.width - (int) (Game.SCALE * 5);
 
-		attackBox.y = hitbox.y + (Game.SCALE * 10);
+		attackBox.y = hitbox.y + (Game.SCALE * 20);
 	}
 
 	private void updateHealthBar() {

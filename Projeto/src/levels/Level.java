@@ -7,10 +7,7 @@ import java.util.ArrayList;
 
 import entities.Crabby;
 import main.Game;
-import objects.Cannon;
-import objects.GameContainers;
-import objects.Potion;
-import objects.Spike;
+import objects.*;
 import utilz.HelpMethods;
 
 import static utilz.Constants.EnemyConstants.*;
@@ -25,6 +22,8 @@ public class Level {
 	private ArrayList<Spike> spikes;
 	private ArrayList<GameContainers> containers;
 	private ArrayList<Cannon> cannons;
+	private ArrayList<Grass> grass = new ArrayList<>();
+	private ArrayList<BackgroundTree> trees = new ArrayList<>();
 	private int lvlTilesWide;
 	private int maxTilesOffset;
 	private int maxLvlOffsetX;
@@ -68,6 +67,10 @@ public class Level {
 			lvlData[y][x] = 0;
 		else
 			lvlData[y][x] = redValue;
+		switch (redValue) {
+			case 0, 1, 2, 3, 30, 31, 33, 34, 35, 36, 37, 38, 39 ->
+					grass.add(new Grass((int) (x * Game.TILES_SIZE), (int) (y * Game.TILES_SIZE) - Game.TILES_SIZE, getRndGrassType(x)));
+		}
 	}
 
 	private void loadEntities(int greenValue, int x, int y) {
@@ -83,6 +86,7 @@ public class Level {
 		case BOX, BARREL -> containers.add(new GameContainers(x * Game.TILES_SIZE, y * Game.TILES_SIZE, blueValue));
 		case SPIKE -> spikes.add(new Spike(x * Game.TILES_SIZE, y * Game.TILES_SIZE, SPIKE));
 		case CANNON_LEFT, CANNON_RIGHT -> cannons.add(new Cannon(x * Game.TILES_SIZE, y * Game.TILES_SIZE, blueValue));
+		case TREE_ONE, TREE_TWO, TREE_THREE -> trees.add(new BackgroundTree(x * Game.TILES_SIZE, y * Game.TILES_SIZE, blueValue));
 		}
 	}
 
@@ -99,6 +103,9 @@ public class Level {
 		maxLvlOffsetX = Game.TILES_SIZE * maxTilesOffset;
 	}
 
+	private int getRndGrassType(int xPos) {
+		return xPos % 2;
+	}
 	public int getSpriteIndex(int x, int y) {
 		return lvlData[y][x];
 	}
@@ -133,5 +140,13 @@ public class Level {
 
 	public ArrayList<Cannon> getCannons() {
 		return cannons;
+	}
+
+	public ArrayList<Grass> getGrass() {
+		return grass;
+	}
+
+	public ArrayList<BackgroundTree> getTrees() {
+		return trees;
 	}
 }

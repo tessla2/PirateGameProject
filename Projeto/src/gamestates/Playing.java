@@ -127,6 +127,7 @@ public class Playing extends State implements Statemethods {
 		g.drawImage(backgroundImg, 0, 0, Game.GAME_WIDTH, Game.GAME_HEIGHT, null);
 
 		// Desenha o nível e os elementos do jogo
+		drawClouds(g);
 		levelManager.draw(g, xLvlOffset);
 		enemyManager.draw(g, xLvlOffset);
 		objectManager.draw(g, xLvlOffset);
@@ -144,12 +145,8 @@ public class Playing extends State implements Statemethods {
 
 
 	private void drawClouds(Graphics g) {
-		for (int i = 0; i < 3; i++)
-			g.drawImage(bigCloud, i * BIG_CLOUD_WIDTH - (int) (xLvlOffset * 0.3), (int) (204 * Game.SCALE),
-					BIG_CLOUD_WIDTH, BIG_CLOUD_HEIGHT, null);
-
 		for (int i = 0; i < smallCloudsPos.length; i++)
-			g.drawImage(smallCloud, SMALL_CLOUD_WIDTH * 4 * i - (int) (xLvlOffset * 0.7), smallCloudsPos[i],
+			g.drawImage(smallCloud, SMALL_CLOUD_WIDTH * 2 * i - (int) (xLvlOffset * 0.7), smallCloudsPos[i],
 					SMALL_CLOUD_WIDTH, SMALL_CLOUD_HEIGHT, null);
 	}
 

@@ -22,15 +22,19 @@ public class LoadSave {
 	public static final String OPTIONS_MENU = "options_background.png";
 
 	// ENVIRONMENT
+	public static final String GRASS = "grass_atlas.png";
 	public static final String BIG_CLOUDS = "big_clouds.png";
 	public static final String SMALL_CLOUDS = "small_clouds.png";
 	public static final String LEVEL_ATLAS = "outside_sprites.png";
 	public static final String TRAP = "trap_atlas.png";
 	public static final String WATER_TOP = "water_atlas_animation.png";
 	public static final String WATER_BOTTOM = "water.png";
+	public static final String TREE_ONE_ATLAS = "tree_one_atlas.png";
+	public static final String TREE_TWO_ATLAS = "tree_two_atlas.png";
 
 	// ENEMIES
 	public static final String CRABBY_SPRITE = "crabby_sprite.png";
+	public static final String SHARK_SPRITE = "shark_atlas.png";
 
 	// HEALTH AND PAPAPA
 	public static final String STATUS_BAR = "health_power_bar.png";

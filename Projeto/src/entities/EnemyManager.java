@@ -72,7 +72,7 @@ public class EnemyManager {
 		for (Crabby c : crabbies)
 			if (c.isActive())
 				if (attackBox.intersects(c.getHitbox())) {
-					c.hurt(10);
+					c.hurt((int)5);
 					return;
 				}
 	}

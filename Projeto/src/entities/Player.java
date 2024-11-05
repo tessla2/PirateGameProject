@@ -414,6 +414,7 @@ public class Player extends Entity {
 		moving = false;
 		state = IDLE;
 		currentHealth = maxHealth;
+		powerValue = powerMaxValue;
 
 		hitbox.x = x;
 		hitbox.y = y;

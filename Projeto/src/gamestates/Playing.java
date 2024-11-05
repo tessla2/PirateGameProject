@@ -7,14 +7,12 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
-import ui.PauseOverlay;
+import ui.*;
 import entities.EnemyManager;
 import entities.Player;
 import levels.LevelManager;
 import main.Game;
 import objects.ObjectManager;
-import ui.GameOverOverlay;
-import ui.LevelCompletedOverlay;
 import utilz.LoadSave;
 import static utilz.Constants.Environment.*;
 
@@ -26,6 +24,7 @@ public class Playing extends State implements Statemethods {
 	private GameOverOverlay gameOverOverlay;
 	private PauseOverlay pauseOverlay;
 	private LevelCompletedOverlay levelCompletedOverlay;
+	private GameCompletedOverlay gameCompletedOverlay;
 	private boolean paused = false;
 	private boolean playerDying;
 
@@ -41,6 +40,7 @@ public class Playing extends State implements Statemethods {
 	private boolean gameOver;
 	private boolean lvlCompleted;
 	public boolean setLevelCompleted;
+	public boolean gameCompleted;
 
 	public Playing(Game game) {
 		super(game);
@@ -85,6 +85,7 @@ public class Playing extends State implements Statemethods {
 		pauseOverlay = new PauseOverlay(this);
 		gameOverOverlay = new GameOverOverlay(this);
 		levelCompletedOverlay = new LevelCompletedOverlay(this);
+		gameCompletedOverlay = new GameCompletedOverlay(this);
 	}
 
 	@Override
@@ -93,6 +94,8 @@ public class Playing extends State implements Statemethods {
 			pauseOverlay.update();
 		}else if (lvlCompleted) {
 			levelCompletedOverlay.update();
+		}else if (gameCompleted){
+			gameCompletedOverlay.update();
 		}else if(gameOver) {
 			gameOverOverlay.update();
 		}else if(playerDying) {
@@ -133,6 +136,7 @@ public class Playing extends State implements Statemethods {
 		objectManager.draw(g, xLvlOffset);
 		player.render(g, xLvlOffset);
 
+
 		// Desenha as sobreposições dependendo do estado do jogo
 		if (paused) {
 			pauseOverlay.draw(g);
@@ -140,6 +144,9 @@ public class Playing extends State implements Statemethods {
 			gameOverOverlay.draw(g);
 		} else if (lvlCompleted) {
 			levelCompletedOverlay.draw(g);
+		}
+		else if (gameCompleted){
+			gameCompletedOverlay.draw(g);
 		}
 	}
 
@@ -250,6 +257,8 @@ public class Playing extends State implements Statemethods {
 			pauseOverlay.mousePressed(e);
 		else if (lvlCompleted)
 			levelCompletedOverlay.mousePressed(e);
+		else if (gameCompleted)
+			gameCompletedOverlay.mousePressed(e);
 
 	}
 
@@ -261,6 +270,8 @@ public class Playing extends State implements Statemethods {
 			pauseOverlay.mouseReleased(e);
 		else if (lvlCompleted)
 			levelCompletedOverlay.mouseReleased(e);
+		else if (gameCompleted)
+			gameCompletedOverlay.mouseReleased(e);
 	}
 
 	@Override
@@ -271,6 +282,8 @@ public class Playing extends State implements Statemethods {
 			pauseOverlay.mouseMoved(e);
 		else if (lvlCompleted)
 			levelCompletedOverlay.mouseMoved(e);
+		else if (gameCompleted)
+			gameCompletedOverlay.mouseMoved(e);
 	}
 
 	public void windowFocusLost() {
@@ -291,9 +304,16 @@ public class Playing extends State implements Statemethods {
 	}
 
 	public void setLevelCompleted(boolean levelCompleted) {
+		game.getAudioPlayer().lvlCompleted();
+		if (levelManager.getLevelIndex() + 1 >= levelManager.getAmountOfLevels()) {
+			// No more levels
+			gameCompleted = true;
+			levelManager.setLevelIndex(0);
+			levelManager.loadNextLevel();
+			resetAll();
+			return;
+		}
 		this.lvlCompleted = levelCompleted;
-		if(levelCompleted)
-			game.getAudioPlayer().lvlCompleted();
 	}
 
 	public ObjectManager getObjectManager() {
@@ -306,5 +326,14 @@ public class Playing extends State implements Statemethods {
 
 	public void setPlayerDying(boolean playerDying) {
 		this.playerDying = playerDying;
+	}
+
+
+	public void setGameCompleted() {
+		gameCompleted = true;
+	}
+
+	public void resetGameCompleted() {
+		gameCompleted = false;
 	}
 }

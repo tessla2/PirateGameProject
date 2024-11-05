@@ -105,7 +105,7 @@ public class Menu extends State implements Statemethods {
 
 	private void resetButtons() {
 		for(MenuButton menuB : buttons){
-			menuB.resetBool();
+			menuB.resetBools();
 		}
 	}
 

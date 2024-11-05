@@ -1,51 +1,50 @@
 package ui;
 
-import gamestates.Gamestate;
-import utilz.LoadSave;
-import java.awt.*;
+import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
+import gamestates.Gamestate;
+import utilz.LoadSave;
 import static utilz.Constants.UI.Buttons.*;
 
 public class MenuButton {
-
     private int xPos, yPos, rowIndex, index;
     private int xOffsetCenter = B_WIDTH / 2;
     private Gamestate state;
     private BufferedImage[] imgs;
     private boolean mouseOver, mousePressed;
-    private Rectangle buttonsRec;
+    private Rectangle bounds;
 
-    public MenuButton(int xPos, int yPos, int rowIndex, Gamestate state){
+    public MenuButton(int xPos, int yPos, int rowIndex, Gamestate state) {
         this.xPos = xPos;
         this.yPos = yPos;
         this.rowIndex = rowIndex;
         this.state = state;
         loadImgs();
-        initbuttonsRec();
+        initBounds();
     }
 
-
-    private void initbuttonsRec(){
-        buttonsRec = new Rectangle(xPos - xOffsetCenter, yPos, B_WIDTH, B_HEIGHT);
+    private void initBounds() {
+        bounds = new Rectangle(xPos - xOffsetCenter, yPos, B_WIDTH, B_HEIGHT);
     }
 
     private void loadImgs() {
         imgs = new BufferedImage[3];
         BufferedImage temp = LoadSave.GetSpriteAtlas(LoadSave.MENU_BUTTONS);
         for (int i = 0; i < imgs.length; i++)
-        imgs[i] = temp.getSubimage(i * B_WIDTH_DEFAULT, rowIndex * B_HEIGHT_DEFAULT, B_WIDTH_DEFAULT, B_HEIGHT_DEFAULT);
+            imgs[i] = temp.getSubimage(i * B_WIDTH_DEFAULT, rowIndex * B_HEIGHT_DEFAULT, B_WIDTH_DEFAULT, B_HEIGHT_DEFAULT);
     }
 
-    public void draw(Graphics g){
+    public void draw(Graphics g) {
         g.drawImage(imgs[index], xPos - xOffsetCenter, yPos, B_WIDTH, B_HEIGHT, null);
     }
 
-    public void update(){
+    public void update() {
         index = 0;
-        if(mouseOver)
+        if (mouseOver)
             index = 1;
-        if(mousePressed)
+        if (mousePressed)
             index = 2;
     }
 
@@ -65,20 +64,20 @@ public class MenuButton {
         this.mousePressed = mousePressed;
     }
 
-    public void applyGamestate(){
+    public Rectangle getBounds() {
+        return bounds;
+    }
+
+    public void applyGamestate() {
         Gamestate.state = state;
     }
 
-    public Rectangle getButtonsRec(){
-        return buttonsRec;
-    }
-
-    public void resetBool(){
+    public void resetBools() {
         mouseOver = false;
         mousePressed = false;
     }
-
-    public Gamestate getState(){
+    public Gamestate getState() {
         return state;
     }
+
 }

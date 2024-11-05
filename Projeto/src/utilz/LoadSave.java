@@ -14,6 +14,8 @@ public class LoadSave {
 	public static final String PLAYER_PIRATE = "player_sprites.png";
 
 	// BG
+	public static final String TUTORIAL_BG = "10.png";
+	public static final String GAME_COMPLETED = "game_completed.png";
 	public static final String MENU_BACKGROUND = "menu_background.png";
 	public static final String PLAYING_BG_IMG = "5.png";
 	public static final String DEATH_SCREEN = "death_screen.png";

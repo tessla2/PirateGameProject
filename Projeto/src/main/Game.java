@@ -3,10 +3,7 @@ package main;
 import java.awt.Graphics;
 
 import audio.AudioPlayer;
-import gamestates.GameOptions;
-import gamestates.Gamestate;
-import gamestates.Menu;
-import gamestates.Playing;
+import gamestates.*;
 import ui.AudioOptions;
 import utilz.LoadSave;
 
@@ -23,6 +20,7 @@ public class Game implements Runnable {
 
 	private Playing playing;
 	private Menu menu;
+	private Tutorial tutorial;
 	private GameOptions gameOptions;
 	private AudioOptions audioOptions;
 	private AudioPlayer audioPlayer;
@@ -49,6 +47,7 @@ public class Game implements Runnable {
 	private void initClasses() {
 		audioOptions = new AudioOptions(this);
 		audioPlayer = new AudioPlayer();
+		tutorial = new Tutorial(this);
 		menu = new Menu(this);
 		playing = new Playing(this);
 		gameOptions = new GameOptions(this);
@@ -67,6 +66,8 @@ public class Game implements Runnable {
 		case PLAYING:
 			playing.update();
 			break;
+			case TUTORIAL:
+				tutorial.update();
 			case OPTIONS:
 				gameOptions.update();
 				break;
@@ -86,6 +87,9 @@ public class Game implements Runnable {
 				break;
 			case PLAYING:
 				playing.draw(g);
+				break;
+			case TUTORIAL:
+				tutorial.draw(g);
 				break;
 			case OPTIONS:
 				gameOptions.draw(g);
@@ -155,6 +159,9 @@ public class Game implements Runnable {
 
 	public GameOptions getGameOptions() {
 		return gameOptions;
+	}
+	public Tutorial getTutorial(){
+		return tutorial;
 	}
 
 	public AudioOptions getAudioOptions(){

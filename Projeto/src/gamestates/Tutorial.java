@@ -15,11 +15,11 @@ public class Tutorial extends State implements Statemethods {
     private BufferedImage backgroundImg;
     private long blinkStartTime; // Para controlar o tempo de piscar
     private static final long BLINK_INTERVAL = 500; // Intervalo de 500ms
-    private boolean isTextVisible = true; // Controle de visibilidade
+    private boolean isTextVisible = true;
 
     public Tutorial(Game game) {
-        super(game); // Chama o construtor da classe pai
-        backgroundImg = LoadSave.GetSpriteAtlas(LoadSave.TUTORIAL_BG); // Carrega a imagem de fundo
+        super(game);
+        backgroundImg = LoadSave.GetSpriteAtlas(LoadSave.TUTORIAL_BG);
     }
 
     public void update() {
@@ -55,33 +55,28 @@ public class Tutorial extends State implements Statemethods {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        // Implementação de clique do mouse, se necessário
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        // Implementação de pressionamento do mouse, se necessário
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        // Implementação de liberação do mouse, se necessário
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        // Implementação de movimento do mouse, se necessário
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-            Gamestate.state = Gamestate.MENU; // Transição para o estado de jogo
+            Gamestate.state = Gamestate.MENU;
         }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        // Implementação de liberação de tecla, se necessário
     }
 }

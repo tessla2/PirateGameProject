@@ -4,8 +4,9 @@ Game Platafomer feito completamente para estudos e exploração da linguagem Jav
 
 
 ## :camera_flash: Screenshots
-<img src= "https://github.com/user-attachments/assets/dd10adf0-0a3f-41b5-a04a-d70a58ce8868" width=400 height=350 />
-<img src= "https://github.com/user-attachments/assets/860d10e4-a353-44eb-aae6-714d5fc9cfde" width=400 height=350 />
+<img src= "https://github.com/user-attachments/assets/dd10adf0-0a3f-41b5-a04a-d70a58ce8868" width=450 height=350 />
+<img src= "https://github.com/user-attachments/assets/860d10e4-a353-44eb-aae6-714d5fc9cfde" width=450 height=350 />
+<img src= "https://github.com/user-attachments/assets/ca976fad-6815-4c11-9200-6582a9fec0d7" width=450 height=350 />
 
 
 ## Tecnologias
